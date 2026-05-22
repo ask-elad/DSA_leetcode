@@ -1,23 +1,21 @@
 class Solution {
 public:
+    double solve(double x, long long n) {
+        if (n == 0)
+            return 1;
+
+        if (n % 2 == 0)
+            return solve(x * x, n / 2);
+        else
+            return x * solve(x, n - 1);
+    }
+
     double myPow(double x, int n) {
-        double a = 1.0;
-        long long N = n; 
+        long long nn = n;
 
-        if (x == 0) return 0;  
-        if (x == 1 || N == 0) return 1;
+        if (nn < 0)
+            return 1.0 / solve(x, -nn);
 
-        if (N < 0) {
-            x = 1 / x;
-            N = -N;
-        }
-
-        while (N > 0) {
-            if (N % 2 == 1) a *= x;
-            x *= x;
-            N /= 2;
-        }
-
-        return a;
+        return solve(x, nn);
     }
 };
